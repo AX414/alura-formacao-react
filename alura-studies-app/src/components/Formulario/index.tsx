@@ -2,6 +2,8 @@ import React from 'react';
 import Botao from '../Botao';
 import style from './Form.module.scss';
 import { ITarefa } from '../../types/ITarefa';
+import { v4 as uuidv4 } from 'uuid';
+import { tempoParaSegundos } from '../../common/utils/date';
 
 class Formulario extends React.Component<{
   setTarefas: React.Dispatch<React.SetStateAction<ITarefa[]>>
@@ -17,8 +19,23 @@ class Formulario extends React.Component<{
   //Adicionando a tarefa do form
   adicionarTarefa(evento: React.FormEvent<HTMLFormElement>){ //o evento é um evento de formulário de uma tag form do html (mais específico impossível)
     evento.preventDefault(); //previne que a página seja recarregada
-    this.props.setTarefas( tarefasAntigas => [...tarefasAntigas, {...this.state}]);
-    console.log('stado: ', this.state);
+    this.props.setTarefas( tarefasAntigas => 
+      [
+        ...tarefasAntigas, 
+        {...this.state,
+          selecionado: false,
+          completo: false,
+          id: uuidv4()
+        }
+      ]
+    );
+
+    console.log("Conversão de", this.state.tempo, "em segundos: ",tempoParaSegundos(this.state.tempo),"segundos.");
+    
+    this.setState({
+      tarefa: "",
+      tempo: "00:00:00"
+    }) //resetando os campos sempre que adicionar
   }
 
 
