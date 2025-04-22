@@ -13,7 +13,7 @@ interface Props{
 function Formulario({ setTarefas }: Props){
 
   const [tarefa, setTarefa] = useState("");
-  const [tempo, setTempo] = useState("00:00");
+  const [tempo, setTempo] = useState("00:00:00");
 
   //Adicionando a tarefa do form
   function adicionarTarefa(evento: React.FormEvent<HTMLFormElement>){ //o evento é um evento de formulário de uma tag form do html (mais específico impossível)
